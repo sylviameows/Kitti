@@ -15,5 +15,20 @@ I don't have much planned for this library yet, but I hope to include some thing
 - Custom inventory menus.
 - Custom book guis.
 
+## Usage
+```kts
+repositories {
+    maven {
+        name = "sylviameows"
+        url = uri("https://repo.sylviameo.ws/releases/")
+    }
+}
+
+dependencies {
+    // replace with latest version
+    compileOnly("net.sylviameows:kitti:0.3.0")
+}
+```
+
 ## Contributing
 Feel free to help by opening a [pull request](https://github.com/sylviameows/Kitti/pulls) or [issue](https://github.com/sylviameows/Kitti/issues)!
