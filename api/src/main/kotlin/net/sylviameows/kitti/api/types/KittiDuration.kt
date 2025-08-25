@@ -13,8 +13,10 @@ class KittiDuration(time: Long) {
             val period: MutableMap<String, Long> = HashMap()
             val time: MutableMap<String, Long> = HashMap()
 
-            periodRegex.findAll(string).forEach(handler(period))
-            timeRegex.findAll(string).forEach(handler(time))
+            val input = string.lowercase();
+
+            periodRegex.findAll(input).forEach(handler(period))
+            timeRegex.findAll(input).forEach(handler(time))
 
             var iso = "P"
             if (period.containsKey("w")) {
@@ -31,7 +33,7 @@ class KittiDuration(time: Long) {
                 }
             }
 
-            return KittiDuration(Duration.parseIsoString(iso).toLong(DurationUnit.MILLISECONDS))
+            return KittiDuration(Duration.parseIsoString(iso.uppercase()).toLong(DurationUnit.MILLISECONDS))
         }
 
         private fun handler(map: MutableMap<String, Long>): (result: MatchResult) -> Unit {
