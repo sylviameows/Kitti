@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.2.10"
 }
 
 group = "net.sylviameows"
@@ -8,17 +8,20 @@ version = properties["plugin_version"] ?: "unspecified"
 ext {
     set("plugin_id", properties["plugin_id"])
     set("plugin_version", properties["plugin_version"])
+    set("minecraft_version", properties["minecraft_version"])
+}
 
-    set("api_version", properties["api_version"])
-    set("paper_version", properties["paper_version"])
+repositories {
+    mavenCentral()
 }
 
 allprojects {
     apply(plugin = "kotlin")
 
-    repositories {
-        mavenCentral()
+    group = rootProject.group
+    version = rootProject.version
 
+    repositories {
         maven {
             name = "papermc"
             url = uri("https://repo.papermc.io/repository/maven-public/")
@@ -26,12 +29,8 @@ allprojects {
     }
 
     dependencies {
-        compileOnly("io.papermc.paper:paper-api:${rootProject.ext["paper_version"]}")
+        compileOnly("io.papermc.paper:paper-api:${properties["minecraft_version"]}-R0.1-SNAPSHOT")
     }
-
-    group = rootProject.group
-    version = rootProject.version
-
 //    apply(plugin = "checkstyle")
 
 //    checkstyle {

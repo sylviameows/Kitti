@@ -1,6 +1,6 @@
 package net.sylviameows.kitti.api
 
-import org.jetbrains.annotations.ApiStatus.Internal
+import org.jetbrains.annotations.ApiStatus
 
 interface KittiAPI {
     companion object {
@@ -9,7 +9,7 @@ interface KittiAPI {
         }
     }
 
-    @Internal
+    @ApiStatus.Internal
     object Holder {
         internal lateinit var INSTANCE: KittiAPI;
 

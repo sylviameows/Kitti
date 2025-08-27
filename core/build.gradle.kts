@@ -1,5 +1,5 @@
 plugins {
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "9.0.2"
 }
 
 repositories {
@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    shadow("org.jetbrains.kotlin:kotlin-stdlib:2.1.20")
+    shadow("org.jetbrains.kotlin:kotlin-stdlib:2.2.10")
     implementation(project(":KittiAPI"))
 }
 
