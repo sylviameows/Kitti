@@ -2,7 +2,7 @@ name: $plugin_id
 description: "Plugin Library for sylviameows' plugins."
 
 version: $plugin_version
-api-version: $api_version
+api-version: $minecraft_version
 
 main: net.sylviameows.kitti.Core
 bootstrapper: net.sylviameows.kitti.Bootstrap
