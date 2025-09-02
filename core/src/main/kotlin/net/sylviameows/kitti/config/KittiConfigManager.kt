@@ -5,6 +5,7 @@ import com.akuleshov7.ktoml.file.TomlFileWriter
 import kotlinx.serialization.serializer
 import net.sylviameows.kitti.api.config.ConfigManager
 import net.sylviameows.kitti.api.config.KittiConfig
+import net.sylviameows.kitti.api.config.TomlConfig
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
@@ -27,7 +28,7 @@ class KittiConfigManager(private val plugin: JavaPlugin) : ConfigManager {
 
         var instance: Any;
         if (file.exists()) {
-            instance = TomlFileReader().decodeFromFile(serializer(clazz), path);
+            instance = TomlFileReader(TomlConfig.input, TomlConfig.output).decodeFromFile(serializer(clazz), path);
         } else {
             val constructor = clazz.getConstructor()
                 ?: throw IllegalArgumentException("type ${clazz.name} must have an empty constructor!");
@@ -35,7 +36,7 @@ class KittiConfigManager(private val plugin: JavaPlugin) : ConfigManager {
 
             instance = constructor.newInstance() as Any;
             file.parentFile.mkdirs();
-            TomlFileWriter().encodeToFile(serializer(clazz), instance as Any, path);
+            TomlFileWriter(TomlConfig.input, TomlConfig.output).encodeToFile(serializer(clazz), instance as Any, path);
         }
 
         @Suppress("UNCHECKED_CAST")
