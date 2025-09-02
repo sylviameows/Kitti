@@ -1,22 +1,10 @@
 package net.sylviameows.kitti.api.commands
 
-import com.mojang.brigadier.tree.LiteralCommandNode
-import io.papermc.paper.command.brigadier.CommandSourceStack
+import net.sylviameows.kitti.api.commands.context.Context
+import org.bukkit.plugin.java.JavaPlugin
 
-interface Command {
-    val name: String
-
-    private fun options(): Options {
-        return options(Options.from(this));
-    }
-
-    fun options(options: Options): Options {
-        return options;
-    }
-
-    fun execute(context: Context): Result
-
-    fun build(): LiteralCommandNode<CommandSourceStack> {
-        return options().build();
-    }
-}
+/**
+ * Alias for using default Context in your commands, use RawCommand if using a custom Context instance.
+ * @see RawCommand
+ */
+interface Command<Plugin : JavaPlugin> : RawCommand<Plugin, Context<Plugin>> {}

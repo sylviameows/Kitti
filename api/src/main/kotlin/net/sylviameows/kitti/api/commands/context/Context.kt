@@ -1,14 +1,18 @@
-package net.sylviameows.kitti.api.commands
+package net.sylviameows.kitti.api.commands.context
 
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import net.sylviameows.kitti.api.commands.exceptions.ContextNullException
 import net.sylviameows.kitti.api.commands.exceptions.ContextTypeException
-import org.jetbrains.annotations.ApiStatus.Internal
-import kotlin.jvm.Throws
+import org.bukkit.plugin.java.JavaPlugin
+import org.jetbrains.annotations.ApiStatus
 
-class Context private constructor(
+/**
+ * The standard context instance. Contains the commands argument data, plugin,
+ */
+class Context<Plugin : JavaPlugin> private constructor(
     val arguments: Map<String, Any?>,
     val source: CommandSourceStack,
+    val plugin: Plugin,
     val subcommand: String?
 ) {
     val count: Int
@@ -41,23 +45,23 @@ class Context private constructor(
         return get<T>(key) ?: throw ContextNullException(key);
     }
 
-    @Internal
-    class Builder {
+    @ApiStatus.Internal
+    class Builder<Plugin : JavaPlugin> : ContextBuilder {
         private val arguments: MutableMap<String, Any> = HashMap();
         private var subcommand: String? = null;
 
-        fun set(key: String, value: Any): Builder {
+        override fun set(key: String, value: Any): Builder<Plugin> {
             arguments[key] = value
             return this;
         }
 
-        fun subcommand(subcommand: String): Builder {
+        override fun subcommand(subcommand: String): Builder<Plugin> {
             this.subcommand = subcommand;
             return this;
         }
 
-        fun build(source: CommandSourceStack): Context {
-            return Context(arguments.toMap(), source, subcommand)
+        fun build(source: CommandSourceStack, plugin: Plugin): Context<Plugin> {
+            return Context(arguments.toMap(), source, plugin, subcommand)
         }
     }
 }
