@@ -24,6 +24,7 @@ class KittiConfigManager(private val plugin: JavaPlugin) : ConfigManager {
         }
 
         val file = File(path);
+
         var instance: Any;
         if (file.exists()) {
             instance = TomlFileReader().decodeFromFile(serializer(clazz), path);
@@ -33,6 +34,7 @@ class KittiConfigManager(private val plugin: JavaPlugin) : ConfigManager {
             constructor.isAccessible = true;
 
             instance = constructor.newInstance() as Any;
+            file.parentFile.mkdirs();
             TomlFileWriter().encodeToFile(serializer(clazz), instance as Any, path);
         }
 
