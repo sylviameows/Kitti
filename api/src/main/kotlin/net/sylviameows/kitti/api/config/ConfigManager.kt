@@ -1,6 +1,11 @@
 package net.sylviameows.kitti.api.config
 
 interface ConfigManager {
+    /**
+     * Discards all cached configs allowing reloading to be possible.
+     */
+    fun reload();
+
     fun <T> load(path: String, clazz: Class<T>): KittiConfig<T>
 }
 

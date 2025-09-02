@@ -8,9 +8,15 @@ import net.sylviameows.kitti.api.config.KittiConfig
 import net.sylviameows.kitti.api.config.TomlConfig
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
+import java.util.Objects
 
 class KittiConfigManager(private val plugin: JavaPlugin) : ConfigManager {
     private val loadedConfigs = mutableMapOf<String, KittiConfig<*>>()
+
+    override fun reload() {
+        // TODO: more advanced reload logic?
+        loadedConfigs.clear();
+    }
 
     override fun <T> load(path: String, clazz: Class<T>): KittiConfig<T> {
         val path = plugin.dataFolder.path+"/$path.toml"
